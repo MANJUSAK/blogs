@@ -12,8 +12,6 @@ import com.manjusaka.blogs.model.result.Status;
  * @version V1.0.0
  */
 public class ResultUtil {
-    private static Result result = new Result();
-    private static Status status = new Status();
 
     /**
      * 用于查询数据返回结果集封装方法
@@ -23,9 +21,7 @@ public class ResultUtil {
      * @return <code>Result</code>
      */
     public static Result result(int errorCode, Object data) {
-        result.setErrorCode(errorCode);
-        result.setData(data);
-        return result;
+        return new Result(errorCode, data);
     }
 
     /**
@@ -36,8 +32,6 @@ public class ResultUtil {
      * @return <code>Result</code>
      */
     public static Status status(int errorCode, String msg) {
-        status.setErrorCode(errorCode);
-        status.setMsg(msg);
-        return status;
+        return new Status(errorCode, msg);
     }
 }

@@ -1,9 +1,8 @@
 package com.manjusaka.blogs.model.user;
 
 import com.manjusaka.blogs.model.base.BaseDO;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.Objects;
 
 /**
  * description:
@@ -87,43 +86,36 @@ public class UserDO extends BaseDO {
         if (!(o instanceof UserDO)) {
             return false;
         }
+        if (!super.equals(o)) {
+            return false;
+        }
         UserDO userDO = (UserDO) o;
-        return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(uid, userDO.uid)
-                .append(userName, userDO.userName)
-                .append(passWord, userDO.passWord)
-                .append(age, userDO.age)
-                .append(gender, userDO.gender)
-                .append(fileId, userDO.fileId)
-                .append(tel, userDO.tel)
-                .isEquals();
+        return Objects.equals(uid, userDO.uid) &&
+                Objects.equals(userName, userDO.userName) &&
+                Objects.equals(passWord, userDO.passWord) &&
+                Objects.equals(age, userDO.age) &&
+                Objects.equals(gender, userDO.gender) &&
+                Objects.equals(fileId, userDO.fileId) &&
+                Objects.equals(tel, userDO.tel);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .appendSuper(super.hashCode())
-                .append(uid)
-                .append(userName)
-                .append(passWord)
-                .append(age)
-                .append(gender)
-                .append(fileId)
-                .append(tel)
-                .toHashCode();
+
+        return Objects.hash(super.hashCode(), uid, userName, passWord, age, gender, fileId, tel);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("uid", uid)
-                .append("userName", userName)
-                .append("passWord", passWord)
-                .append("age", age)
-                .append("gender", gender)
-                .append("fileId", fileId)
-                .append("tel", tel)
-                .toString();
+        final StringBuilder sb = new StringBuilder("UserDO{");
+        sb.append("uid='").append(uid).append('\'');
+        sb.append(", userName='").append(userName).append('\'');
+        sb.append(", passWord='").append(passWord).append('\'');
+        sb.append(", age='").append(age).append('\'');
+        sb.append(", gender='").append(gender).append('\'');
+        sb.append(", fileId='").append(fileId).append('\'');
+        sb.append(", tel='").append(tel).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -1,10 +1,7 @@
 package com.manjusaka.blogs.model.base;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * description:
@@ -123,43 +120,34 @@ public class BaseDO implements Serializable {
             return false;
         }
         BaseDO baseDO = (BaseDO) o;
-        return new EqualsBuilder()
-                .append(id, baseDO.id)
-                .append(version, baseDO.version)
-                .append(status, baseDO.status)
-                .append(creater, baseDO.creater)
-                .append(createTime, baseDO.createTime)
-                .append(editor, baseDO.editor)
-                .append(editTime, baseDO.editTime)
-                .append(remark, baseDO.remark)
-                .isEquals();
+        return Objects.equals(id, baseDO.id) &&
+                Objects.equals(version, baseDO.version) &&
+                Objects.equals(status, baseDO.status) &&
+                Objects.equals(creater, baseDO.creater) &&
+                Objects.equals(createTime, baseDO.createTime) &&
+                Objects.equals(editor, baseDO.editor) &&
+                Objects.equals(editTime, baseDO.editTime) &&
+                Objects.equals(remark, baseDO.remark);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(id)
-                .append(version)
-                .append(status)
-                .append(creater)
-                .append(createTime)
-                .append(editor)
-                .append(editTime)
-                .append(remark)
-                .toHashCode();
+
+        return Objects.hash(id, version, status, creater, createTime, editor, editTime, remark);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("id", id)
-                .append("version", version)
-                .append("status", status)
-                .append("creater", creater)
-                .append("createTime", createTime)
-                .append("editor", editor)
-                .append("editTime", editTime)
-                .append("remark", remark)
-                .toString();
+        final StringBuilder sb = new StringBuilder("BaseDO{");
+        sb.append("id=").append(id);
+        sb.append(", version=").append(version);
+        sb.append(", status='").append(status).append('\'');
+        sb.append(", creater='").append(creater).append('\'');
+        sb.append(", createTime='").append(createTime).append('\'');
+        sb.append(", editor='").append(editor).append('\'');
+        sb.append(", editTime='").append(editTime).append('\'');
+        sb.append(", remark='").append(remark).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

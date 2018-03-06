@@ -1,10 +1,7 @@
 package com.manjusaka.blogs.model.result;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * description:
@@ -59,25 +56,22 @@ public class Status implements Serializable {
             return false;
         }
         Status status = (Status) o;
-        return new EqualsBuilder()
-                .append(errorCode, status.errorCode)
-                .append(msg, status.msg)
-                .isEquals();
+        return errorCode == status.errorCode &&
+                Objects.equals(msg, status.msg);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(errorCode)
-                .append(msg)
-                .toHashCode();
+
+        return Objects.hash(errorCode, msg);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("errorCode", errorCode)
-                .append("msg", msg)
-                .toString();
+        final StringBuilder sb = new StringBuilder("Status{");
+        sb.append("errorCode=").append(errorCode);
+        sb.append(", msg='").append(msg).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
