@@ -7,6 +7,7 @@ import com.manjusaka.blogs.service.UserService;
 import com.manjusaka.blogs.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * description:
@@ -50,7 +51,7 @@ public class UserController {
      * @return <code>Status</code>
      */
     @PostMapping("register.htm")
-    public Status userRegisterController(UserDO userDO) {
+    public Status userRegisterController(UserDO userDO, @RequestParam("files") MultipartFile[] files) {
         try {
             return this.service.userRegisterService(userDO);
         } catch (Exception e) {

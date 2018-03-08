@@ -26,7 +26,7 @@
     <select id="userLoginDao" parameterType="string" resultMap="userInfo">
         SELECT
         <include refid="user_dao"/>
-        FROM users WHERE user_name=#{uName} AND pass_word=#{pwd}
+        FROM users WHERE user_name=#{uName} AND pass_word=#{pwd} AND user_status='0'
     </select>
     <!-- 用户数据保存sql -->
     <insert id="userRegisterDao" parameterType="com.manjusaka.blogs.model.user.UserDO">

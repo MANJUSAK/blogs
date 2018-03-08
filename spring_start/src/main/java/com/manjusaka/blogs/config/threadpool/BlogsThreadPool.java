@@ -1,8 +1,10 @@
 package com.manjusaka.blogs.config.threadpool;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.Nullable;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -23,14 +25,27 @@ import java.util.concurrent.Executor;
 @Configuration("blogsThreadPool")
 @EnableAsync
 public class BlogsThreadPool implements AsyncConfigurer, SchedulingConfigurer {
+    @Value("${blogs.core.pool.size}")
+    private int corePoolSize;
+    @Value("${blogs.max.pool.size}")
+    private int maxPoolSize;
+    @Value("${blogs.queue.capacity}")
+    private int queueCapacity;
+    @Value("${blogs.task.scheduler.pool.size}")
+    private int taskSchedulerPoolSize;
+    @Value("${blogs.await.termination.seconds}")
+    private int awaitTerminationSeconds;
+    @Value("${blogs.wait.forTasksToComplete.onShutdown}")
+    private boolean waitForTasksToCompleteOnShutdown;
 
+    @Nullable
     @Bean(name = "blogsTaskScheduler")
     public ThreadPoolTaskScheduler blogsTaskScheduler() {
         //定时器线程池调度器配置
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-        scheduler.setPoolSize(10);
-        scheduler.setAwaitTerminationSeconds(60);
-        scheduler.setWaitForTasksToCompleteOnShutdown(true);
+        scheduler.setPoolSize(taskSchedulerPoolSize);
+        scheduler.setAwaitTerminationSeconds(awaitTerminationSeconds);
+        scheduler.setWaitForTasksToCompleteOnShutdown(waitForTasksToCompleteOnShutdown);
         return scheduler;
     }
 
@@ -38,10 +53,10 @@ public class BlogsThreadPool implements AsyncConfigurer, SchedulingConfigurer {
     public Executor getAsyncExecutor() {
         //线程池执行器
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(10);
-        executor.setMaxPoolSize(100);
-        executor.setQueueCapacity(150);
-        executor.setAwaitTerminationSeconds(60);
+        executor.setCorePoolSize(corePoolSize);
+        executor.setMaxPoolSize(maxPoolSize);
+        executor.setQueueCapacity(queueCapacity);
+        executor.setAwaitTerminationSeconds(taskSchedulerPoolSize);
         executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.initialize();
         /*Executor scheduler = this.taskScheduler();*/

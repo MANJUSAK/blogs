@@ -22,8 +22,8 @@ import java.util.List;
  */
 @Configuration("webMvcConfigurer")
 public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
-    private static final String URLPATH = "/";
-    private static final String VIEWNAME = "redirect:/home.html";
+    private static String urlPath = "/";
+    private static String viewName = "redirect:/home.html";
 
     /**
      * 自定义系统主页
@@ -32,7 +32,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController(URLPATH).setViewName(VIEWNAME);
+        registry.addViewController(urlPath).setViewName(viewName);
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         super.addViewControllers(registry);
     }

@@ -12,7 +12,6 @@ import com.manjusaka.blogs.model.result.Status;
  * @version V1.0.0
  */
 public class ResultUtil {
-
     /**
      * 用于查询数据返回结果集封装方法
      *

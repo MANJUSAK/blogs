@@ -18,16 +18,16 @@ public class MultipartConfig {
     /**
      * 最大值
      */
-    private final static String MAXIMUM = "50MB";
+    private static String max = "50MB";
 
 
     @Bean(name = "multipartConfigElement")
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory multipartConfig = new MultipartConfigFactory();
         //单次上传文件总数
-        multipartConfig.setMaxFileSize(MAXIMUM);
+        multipartConfig.setMaxFileSize(max);
         //每次http请求大小最大值
-        multipartConfig.setMaxRequestSize(MAXIMUM);
+        multipartConfig.setMaxRequestSize(max);
         return multipartConfig.createMultipartConfig();
     }
 }

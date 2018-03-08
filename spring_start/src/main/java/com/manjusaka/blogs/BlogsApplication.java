@@ -9,6 +9,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * function 系统启动程序入口
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ServletComponentScan(basePackages = "com.manjusaka.blogs.config.*")
 @ComponentScan(basePackages = "com.manjusaka.blogs.*")
 @SpringBootApplication
+@EnableScheduling
 public class BlogsApplication extends SpringBootServletInitializer implements CommandLineRunner {
     /**
      * 实例化日志管理

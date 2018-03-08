@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         try {
             data = this.dao.userLoginDao(userName, passWord);
         } catch (RuntimeException e) {
-            throw new BlogsDataBaseException("sql执行异常!" + e.getMessage(), e.getCause());
+            throw new BlogsDataBaseException("sql执行异常!" + ":" + e.getMessage(), e.getCause());
         }
         if (data != null) {
             return (T) ResultUtil.result(StatusEnum.SUCCESS.getCODE(), data);
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
         try {
             status = this.dao.userRegisterDao(userDO);
         } catch (RuntimeException e) {
-            throw new BlogsDataBaseException("sql语句执行异常！" + e.getMessage(), e.getCause());
+            throw new BlogsDataBaseException("sql语句执行异常！" + ":" + e.getMessage(), e.getCause());
         }
         if (status > 0) {
             return ResultUtil.status(StatusEnum.SUCCESS.getCODE(), StatusEnum.SUCCESS.getEXPLAIN());
