@@ -1,4 +1,4 @@
-package com.manjusaka.blogs.service.exception;
+package com.manjusaka.blogs.exception;
 
 /**
  * description:

@@ -28,7 +28,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     /**
      * 自定义系统主页
      *
-     * @param registry 视图注册信息
+     * @param registry <code>视图注册信息</code>
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -40,7 +40,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     /**
      * mvc返回json解析使用fastjson
      *
-     * @param converters 写入到http数据
+     * @param converters <code>FastJsonHttpMessageConverter</code>
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

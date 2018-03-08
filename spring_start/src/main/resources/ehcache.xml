@@ -2,9 +2,9 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
          updateCheck="false">
-    <diskStore path="/usr/hotel/cache"/>
+    <diskStore path="/usr/blogs/cache"/>
     <defaultCache
-            name="gudou_hotel"
+            name="blogs_cache"
             maxElementsInMemory="1000"
             maxElementsOnDisk="10000000"
             eternal="false"

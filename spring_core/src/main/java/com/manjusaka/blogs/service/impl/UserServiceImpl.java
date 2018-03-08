@@ -1,17 +1,20 @@
 package com.manjusaka.blogs.service.impl;
 
 import com.manjusaka.blogs.dao.userdao.UserDao;
+import com.manjusaka.blogs.exception.BlogsDataBaseException;
+import com.manjusaka.blogs.exception.BlogsException;
 import com.manjusaka.blogs.model.result.Status;
 import com.manjusaka.blogs.model.statusenum.StatusEnum;
 import com.manjusaka.blogs.model.user.UserDO;
 import com.manjusaka.blogs.service.UserService;
-import com.manjusaka.blogs.service.exception.BlogsDataBaseException;
-import com.manjusaka.blogs.service.exception.BlogsException;
 import com.manjusaka.blogs.util.ResultUtil;
 import com.manjusaka.blogs.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -28,6 +31,8 @@ import java.time.format.DateTimeFormatter;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao dao;
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
     /**
      * 时间格式
      */
@@ -45,7 +50,14 @@ public class UserServiceImpl implements UserService {
     public <T> T userLoginService(String userName, String passWord) throws BlogsException {
         UserDO data = null;
         try {
-            data = this.dao.userLoginDao(userName, passWord);
+            ValueOperations<String, Object> so = this.redisTemplate.opsForValue();
+            data = (UserDO) so.get(userName);
+            if (null == data) {
+                data = this.dao.userLoginDao(userName, passWord);
+                if (data != null) {
+                    setUserToRedis(data);
+                }
+            }
         } catch (RuntimeException e) {
             throw new BlogsDataBaseException("sql执行异常!" + ":" + e.getMessage(), e.getCause());
         }
@@ -75,8 +87,14 @@ public class UserServiceImpl implements UserService {
             throw new BlogsDataBaseException("sql语句执行异常！" + ":" + e.getMessage(), e.getCause());
         }
         if (status > 0) {
+            setUserToRedis(userDO);
             return ResultUtil.status(StatusEnum.SUCCESS.getCODE(), StatusEnum.SUCCESS.getEXPLAIN());
         }
         return ResultUtil.status(StatusEnum.DEFEAT.getCODE(), StatusEnum.DEFEAT.getEXPLAIN());
+    }
+
+    private void setUserToRedis(UserDO user) {
+        ValueOperations<String, Object> vo = this.redisTemplate.opsForValue();
+        vo.set(user.getUserName(), user);
     }
 }

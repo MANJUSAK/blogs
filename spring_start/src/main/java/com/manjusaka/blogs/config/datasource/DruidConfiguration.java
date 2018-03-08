@@ -22,7 +22,7 @@ public class DruidConfiguration {
     /**
      * 注册一个StatViewServlet
      *
-     * @return servletRegistrationBean（数据源监控配置）
+     * @return <code>servletRegistrationBean（数据源监控配置）</code>
      */
     @Bean(name = "druidStatViewServelt")
     public ServletRegistrationBean druidStatViewServelt() {
@@ -46,7 +46,7 @@ public class DruidConfiguration {
     /**
      * 注册一个：filterRegistrationBean
      *
-     * @return FilterRegistrationBean
+     * @return <code>FilterRegistrationBean</code>
      */
     @Bean(name = "druidStatFilter")
     public FilterRegistrationBean druidStatFilter() {

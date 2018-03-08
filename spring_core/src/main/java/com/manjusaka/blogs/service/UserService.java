@@ -2,7 +2,7 @@ package com.manjusaka.blogs.service;
 
 import com.manjusaka.blogs.model.result.Status;
 import com.manjusaka.blogs.model.user.UserDO;
-import com.manjusaka.blogs.service.exception.BlogsException;
+import com.manjusaka.blogs.exception.BlogsException;
 
 /**
  * description:
