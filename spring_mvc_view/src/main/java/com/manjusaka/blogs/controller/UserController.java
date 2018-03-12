@@ -59,4 +59,9 @@ public class UserController {
             return ResultUtil.status(StatusEnum.DATABASE_ERROR.getCODE(), StatusEnum.DATABASE_ERROR.getEXPLAIN());
         }
     }
+
+    @GetMapping("/test")
+    public String test(String test) {
+        return test;
+    }
 }
